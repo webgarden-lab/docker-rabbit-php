@@ -24,8 +24,7 @@ RUN set -e && \
 	apt-get update \
 	&& apt-get install --no-install-recommends -y \
 		php7.0-cli \
-		php7.0-common \
-	&& rm -rf /var/lib/apt/lists/*
+		php7.0-common
 
 RUN apt-get install --no-install-recommends -y git
 
@@ -44,5 +43,8 @@ RUN EXPECTED_SIGNATURE=$(wget -q -O - https://composer.github.io/installer.sig) 
 	; rm composer-setup.php \
 	; exit $RESULT
 
+# -----------------------------------------------
+# Clear
+# -----------------------------------------------
 
-
+RUN rm -rf /var/lib/apt/lists/*
