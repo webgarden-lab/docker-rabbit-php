@@ -1,26 +1,19 @@
 FROM rabbitmq:3.7
 
 # -----------------------------------------------
-# Commons 
+# Commons
 # -----------------------------------------------
 
-RUN set -e && \
-	apt-get update && apt-get install --no-install-recommends -y \
-		wget \
-		rsyslog \
-        libfreetype6-dev \
-        libjpeg62-turbo-dev \
-        libmcrypt-dev \
-        ssh \
-        git \
-        telnet \
-        unzip \
-        openssl \
-        zlib1g-dev \
-        libicu-dev \
-        libxml2-dev \
-        g++ \
-        ssh
+RUN set -e && apt-get update
+
+
+RUN apt-get install --no-install-recommends -y curl ca-certificates
+
+RUN apt-get install --no-install-recommends -y unzip
+RUN apt-get install --no-install-recommends -y openssl
+RUN apt-get install --no-install-recommends -y g++
+RUN apt-get install --no-install-recommends -y ssh
+RUN apt-get install --no-install-recommends -y wget
 
 # -----------------------------------------------
 # PHP 7.0
@@ -31,6 +24,7 @@ RUN set -e && \
 	apt-get update \
 	&& apt-get install --no-install-recommends -y \
 		php7.0-cli \
+		php7.0-common \
 	&& rm -rf /var/lib/apt/lists/*
 
 
@@ -39,7 +33,7 @@ RUN set -e && \
 # -----------------------------------------------
 
 RUN EXPECTED_SIGNATURE=$(wget -q -O - https://composer.github.io/installer.sig) \
-    ; php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
+    ; curl -sS https://getcomposer.org/installer -o 'composer-setup.php' \
     ; ACTUAL_SIGNATURE=$(php -r "echo hash_file('SHA384', 'composer-setup.php');") \
     ; [ "$EXPECTED_SIGNATURE" != "$ACTUAL_SIGNATURE" ] && echo 'ERROR: Invalid installer signature' && exit 1 \
 	; php composer-setup.php --quiet \
