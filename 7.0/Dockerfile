@@ -1,5 +1,26 @@
 FROM rabbitmq:3.7
 
+# -----------------------------------------------
+# Commons 
+# -----------------------------------------------
+
+RUN set -e && \
+	apt-get update && apt-get install --no-install-recommends -y \
+		wget \
+		rsyslog \
+        libfreetype6-dev \
+        libjpeg62-turbo-dev \
+        libmcrypt-dev \
+        ssh \
+        git \
+        telnet \
+        unzip \
+        openssl \
+        zlib1g-dev \
+        libicu-dev \
+        libxml2-dev \
+        g++ \
+        ssh
 
 # -----------------------------------------------
 # PHP 7.0
