@@ -27,6 +27,7 @@ RUN set -e && \
 		php7.0-common \
 	&& rm -rf /var/lib/apt/lists/*
 
+RUN apt-get install --no-install-recommends -y git
 
 # -----------------------------------------------
 # Composer
