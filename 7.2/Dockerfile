@@ -18,9 +18,8 @@ RUN apt-get install --no-install-recommends -y git
 
 
 # -----------------------------------------------
-# PHP 7.1
+# PHP 7.2
 # -----------------------------------------------
-
 RUN apt update
 RUN apt install apt-transport-https lsb-release ca-certificates -y
 
@@ -30,7 +29,7 @@ RUN wget -O /etc/apt/trusted.gpg.d/php.gpg \
 RUN echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | tee /etc/apt/sources.list.d/php.list
 
 RUN apt update
-RUN apt install php7.1 -y
+RUN apt install php7.2 -y
 
 
 # -----------------------------------------------
