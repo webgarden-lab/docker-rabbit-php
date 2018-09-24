@@ -20,24 +20,32 @@ RUN apt-get install --no-install-recommends -y git
 # -----------------------------------------------
 # PHP 7.1
 # -----------------------------------------------
-RUN apt-get install --no-install-recommends -y software-properties-common
-RUN add-apt-repository ppa:ondrej/php
-RUN apt-get update
-RUN apt-get install  --no-install-recommends -y php7.1 \
-    libapache2-mod-php7.1  \
-    php7.1-common  \
-    php7.1-mbstring  \
-    php7.1-xmlrpc \
-    php7.1-soap  \
-    php7.1-gd \
-    php7.1-xml  \
-    php7.1-intl \
-    php7.1-mysql \
-    php7.1-cli  \
-    php7.1-mcrypt  \
-    php7.1-zip  \
-    php7.1-curl 
+# RUN apt-get install --no-install-recommends -y software-properties-common
+# RUN add-apt-repository ppa:ondrej/php
+# RUN apt-get update
+# RUN apt-get install  --no-install-recommends -y php7.1 \
+#     libapache2-mod-php7.1  \
+#     php7.1-common  \
+#     php7.1-mbstring  \
+#     php7.1-xmlrpc \
+#     php7.1-soap  \
+#     php7.1-gd \
+#     php7.1-xml  \
+#     php7.1-intl \
+#     php7.1-mysql \
+#     php7.1-cli  \
+#     php7.1-mcrypt  \
+#     php7.1-zip  \
+#     php7.1-curl 
 
+
+RUN install ca-certificates apt-transport-https \
+	; wget -q https://packages.sury.org/php/apt.gpg -O- | sudo apt-key add - \
+	; echo "deb https://packages.sury.org/php/ stretch main" | sudo tee /etc/apt/sources.list.d/php.list
+
+RUN apt-get update
+RUN apt install php7.1
+RUN apt install php7.1-cli php7.1-common php7.1-curlphp7.1-mbstring php7.1-mysql php7.1-xml
 
 
 # -----------------------------------------------
