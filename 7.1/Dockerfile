@@ -39,9 +39,9 @@ RUN apt-get install --no-install-recommends -y git
 #     php7.1-curl 
 
 
-RUN install ca-certificates apt-transport-https \
-	; wget -q https://packages.sury.org/php/apt.gpg -O- | apt-key add - \
-	; echo "deb https://packages.sury.org/php/ stretch main" | tee /etc/apt/sources.list.d/php.list
+# RUN install ca-certificates apt-transport-https \
+# 	; wget -q https://packages.sury.org/php/apt.gpg -O- | apt-key add - \
+# 	; echo "deb https://packages.sury.org/php/ stretch main" | tee /etc/apt/sources.list.d/php.list
 
 RUN apt-get update
 RUN apt install php7.1
