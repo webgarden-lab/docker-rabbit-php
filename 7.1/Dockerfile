@@ -36,16 +36,26 @@ RUN apt-get install --no-install-recommends -y git
 #     php7.1-cli  \
 #     php7.1-mcrypt  \
 #     php7.1-zip  \
-#     php7.1-curl 
+#     php7.1-curl
 
 
 # RUN install ca-certificates apt-transport-https \
 # 	; wget -q https://packages.sury.org/php/apt.gpg -O- | apt-key add - \
 # 	; echo "deb https://packages.sury.org/php/ stretch main" | tee /etc/apt/sources.list.d/php.list
 
-RUN apt-get update
-RUN apt install php7.1
-RUN apt install php7.1-cli php7.1-common php7.1-curlphp7.1-mbstring php7.1-mysql php7.1-xml
+
+#RUN apt-get install php7.1-cli php7.1-common php7.1-curlphp7.1-mbstring php7.1-mysql php7.1-xml
+
+RUN apt update
+RUN apt install apt-transport-https lsb-release ca-certificates -y
+
+RUN wget -O /etc/apt/trusted.gpg.d/php.gpg \
+	https://packages.sury.org/php/apt.gpg
+
+RUN echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | tee /etc/apt/sources.list.d/php.list
+
+RUN apt update
+RUN apt install php7.1 -y
 
 
 # -----------------------------------------------
@@ -67,3 +77,6 @@ RUN EXPECTED_SIGNATURE=$(wget -q -O - https://composer.github.io/installer.sig) 
 # Clear
 # -----------------------------------------------
 RUN rm -rf /var/lib/apt/lists/*
+
+
+RUN php -v
