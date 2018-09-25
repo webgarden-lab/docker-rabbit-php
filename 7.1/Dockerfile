@@ -30,7 +30,7 @@ RUN wget -O /etc/apt/trusted.gpg.d/php.gpg \
 RUN echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | tee /etc/apt/sources.list.d/php.list
 
 RUN apt update
-RUN apt install php7.1 -y
+RUN apt install -y php7.1 php7.1-mysql php7.1-common
 
 
 # -----------------------------------------------
